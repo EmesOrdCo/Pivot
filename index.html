@@ -14,21 +14,25 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Skip to main content link -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
     <!-- Announcement Bar -->
-    <div class="announcement-bar">
+    <div class="announcement-bar" role="region" aria-label="Announcement">
         <p>Welcome to our store</p>
     </div>
 
     <!-- Header -->
     <header class="header">
         <div class="header-container">
-            <button class="menu-toggle" aria-label="Menu">
-                <span></span>
-                <span></span>
-                <span></span>
+            <button class="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-menu">
+                <span class="sr-only">Menu</span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
             </button>
             
-            <a href="/" class="logo">
+            <a href="/" class="logo" aria-label="PIVOT 1.0 Home">
                 <img src="https://pivot1-0.myshopify.com/cdn/shop/files/IMG_1052.jpg?v=1752181150&width=500" alt="PIVOT 1.0 Logo">
             </a>
             
@@ -44,7 +48,7 @@
         </div>
 
         <!-- Navigation Menu -->
-        <nav class="nav-menu">
+        <nav class="nav-menu" id="nav-menu" aria-label="Main navigation">
             <ul>
                 <li><a href="/">Home</a></li>
                 <li><a href="#product">PIVOT 1.0</a></li>
@@ -54,7 +58,7 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="hero">
+    <section class="hero" id="main-content">
         <div class="hero-content">
             <h1 class="hero-title">
                 <span class="title-main">The PIVOT</span>
@@ -69,9 +73,9 @@
     </section>
 
     <!-- Video Section -->
-    <section class="video-section">
+    <section class="video-section" aria-label="Product demonstration video">
         <div class="video-container">
-            <video autoplay muted loop playsinline>
+            <video autoplay muted loop playsinline controls aria-label="PIVOT 1.0 product demonstration video">
                 <source src="https://cdn.shopify.com/videos/c/o/v/986c23b925544adeb9c4d0c5731c532f.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
@@ -79,9 +83,9 @@
     </section>
 
     <!-- Features Section -->
-    <section class="features" id="product">
+    <section class="features" id="product" aria-labelledby="features-heading">
         <div class="container">
-            <h2 class="section-title">Features</h2>
+            <h2 class="section-title" id="features-heading">Features</h2>
             
             <div class="features-grid">
                 <!-- Feature 1: Hidden Sharpener -->
@@ -144,10 +148,10 @@
     </section>
 
     <!-- Call to Action Section -->
-    <section class="cta-section">
+    <section class="cta-section" aria-labelledby="cta-heading">
         <div class="container">
             <div class="cta-content">
-                <h2 class="cta-title">Ready to Experience PIVOT 1.0?</h2>
+                <h2 class="cta-title" id="cta-heading">Ready to Experience PIVOT 1.0?</h2>
                 <p class="cta-description">Visit our official store to purchase your PIVOT 1.0 today.</p>
                 <a href="https://pivot1-0.myshopify.com" target="_blank" rel="noopener noreferrer" class="btn-primary btn-large">Shop on Shopify</a>
                 <p class="cta-note">All purchases are processed securely through our Shopify store</p>
@@ -156,7 +160,7 @@
     </section>
 
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="footer" role="contentinfo">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
@@ -166,23 +170,23 @@
                 
                 <div class="footer-section">
                     <h4>Payment Methods</h4>
-                    <div class="payment-icons">
-                        <span class="payment-icon" title="American Express">Amex</span>
-                        <span class="payment-icon" title="Apple Pay">Apple Pay</span>
-                        <span class="payment-icon" title="Bancontact">Bancontact</span>
-                        <span class="payment-icon" title="Diners Club">Diners</span>
-                        <span class="payment-icon" title="Discover">Discover</span>
-                        <span class="payment-icon" title="Google Pay">Google Pay</span>
-                        <span class="payment-icon" title="Maestro">Maestro</span>
-                        <span class="payment-icon" title="Mastercard">Mastercard</span>
-                        <span class="payment-icon" title="PayPal">PayPal</span>
-                        <span class="payment-icon" title="Shop Pay">Shop Pay</span>
-                        <span class="payment-icon" title="Union Pay">Union Pay</span>
-                        <span class="payment-icon" title="Visa">Visa</span>
+                    <div class="payment-icons" role="list" aria-label="Accepted payment methods">
+                        <span class="payment-icon" role="listitem" aria-label="American Express">Amex</span>
+                        <span class="payment-icon" role="listitem" aria-label="Apple Pay">Apple Pay</span>
+                        <span class="payment-icon" role="listitem" aria-label="Bancontact">Bancontact</span>
+                        <span class="payment-icon" role="listitem" aria-label="Diners Club">Diners</span>
+                        <span class="payment-icon" role="listitem" aria-label="Discover">Discover</span>
+                        <span class="payment-icon" role="listitem" aria-label="Google Pay">Google Pay</span>
+                        <span class="payment-icon" role="listitem" aria-label="Maestro">Maestro</span>
+                        <span class="payment-icon" role="listitem" aria-label="Mastercard">Mastercard</span>
+                        <span class="payment-icon" role="listitem" aria-label="PayPal">PayPal</span>
+                        <span class="payment-icon" role="listitem" aria-label="Shop Pay">Shop Pay</span>
+                        <span class="payment-icon" role="listitem" aria-label="Union Pay">Union Pay</span>
+                        <span class="payment-icon" role="listitem" aria-label="Visa">Visa</span>
                     </div>
                 </div>
                 
-                <div class="footer-section">
+                <div class="footer-section" id="contact">
                     <h4>Links</h4>
                     <ul class="footer-links">
                         <li><a href="/privacy">Privacy policy</a></li>

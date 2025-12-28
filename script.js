@@ -4,11 +4,12 @@ const navMenu = document.querySelector('.nav-menu');
 
 if (menuToggle && navMenu) {
     menuToggle.addEventListener('click', () => {
-        navMenu.classList.toggle('active');
+        const isExpanded = navMenu.classList.toggle('active');
         menuToggle.classList.toggle('active');
+        menuToggle.setAttribute('aria-expanded', isExpanded);
         
         // Animate hamburger menu
-        const spans = menuToggle.querySelectorAll('span');
+        const spans = menuToggle.querySelectorAll('span[aria-hidden="true"]');
         if (navMenu.classList.contains('active')) {
             spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
             spans[1].style.opacity = '0';
@@ -19,6 +20,45 @@ if (menuToggle && navMenu) {
             spans[2].style.transform = '';
         }
     });
+    
+    // Close menu on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+            navMenu.classList.remove('active');
+            menuToggle.classList.remove('active');
+            menuToggle.setAttribute('aria-expanded', 'false');
+            const spans = menuToggle.querySelectorAll('span[aria-hidden="true"]');
+            spans[0].style.transform = '';
+            spans[1].style.opacity = '1';
+            spans[2].style.transform = '';
+            menuToggle.focus();
+        }
+    });
+    
+    // Trap focus within menu when open
+    const menuLinks = navMenu.querySelectorAll('a');
+    if (menuLinks.length > 0) {
+        const firstLink = menuLinks[0];
+        const lastLink = menuLinks[menuLinks.length - 1];
+        
+        navMenu.addEventListener('keydown', (e) => {
+            if (!navMenu.classList.contains('active')) return;
+            
+            if (e.key === 'Tab') {
+                if (e.shiftKey) {
+                    if (document.activeElement === firstLink) {
+                        e.preventDefault();
+                        lastLink.focus();
+                    }
+                } else {
+                    if (document.activeElement === lastLink) {
+                        e.preventDefault();
+                        firstLink.focus();
+                    }
+                }
+            }
+        });
+    }
 }
 
 // Smooth scroll for anchor links
@@ -42,7 +82,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 if (navMenu && navMenu.classList.contains('active')) {
                     navMenu.classList.remove('active');
                     menuToggle.classList.remove('active');
-                    const spans = menuToggle.querySelectorAll('span');
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                    const spans = menuToggle.querySelectorAll('span[aria-hidden="true"]');
                     spans[0].style.transform = '';
                     spans[1].style.opacity = '1';
                     spans[2].style.transform = '';
@@ -116,16 +157,30 @@ window.addEventListener('load', () => {
     document.body.classList.add('loaded');
 });
 
-// Video play/pause on hover (optional enhancement)
+// Video accessibility - ensure controls are available
 const video = document.querySelector('.video-container video');
 if (video) {
-    video.addEventListener('mouseenter', () => {
-        video.play();
+    // Ensure video has controls attribute for accessibility
+    if (!video.hasAttribute('controls')) {
+        video.setAttribute('controls', '');
+    }
+    
+    // Ensure video plays on load (if autoplay is allowed)
+    video.play().catch(e => {
+        // Autoplay may be prevented by browser - this is fine
+        console.log('Video autoplay prevented:', e);
     });
     
-    // Ensure video plays on load
-    video.play().catch(e => {
-        console.log('Video autoplay prevented:', e);
+    // Add keyboard support for video
+    video.addEventListener('keydown', (e) => {
+        if (e.key === ' ' || e.key === 'Enter') {
+            e.preventDefault();
+            if (video.paused) {
+                video.play();
+            } else {
+                video.pause();
+            }
+        }
     });
 }
 
