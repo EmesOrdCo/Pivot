@@ -21,43 +21,6 @@ if (menuToggle && navMenu) {
     });
 }
 
-// Search Modal
-const searchToggle = document.querySelector('.search-toggle');
-const searchModal = document.getElementById('searchModal');
-const modalClose = document.querySelector('.modal-close');
-
-if (searchToggle && searchModal) {
-    searchToggle.addEventListener('click', () => {
-        searchModal.classList.add('active');
-        const searchInput = searchModal.querySelector('input[type="search"]');
-        if (searchInput) {
-            setTimeout(() => searchInput.focus(), 100);
-        }
-    });
-}
-
-if (modalClose && searchModal) {
-    modalClose.addEventListener('click', () => {
-        searchModal.classList.remove('active');
-    });
-}
-
-// Close modal on outside click
-if (searchModal) {
-    searchModal.addEventListener('click', (e) => {
-        if (e.target === searchModal) {
-            searchModal.classList.remove('active');
-        }
-    });
-}
-
-// Close modal on Escape key
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && searchModal && searchModal.classList.contains('active')) {
-        searchModal.classList.remove('active');
-    }
-});
-
 // Smooth scroll for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
@@ -88,25 +51,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         }
     });
 });
-
-// Newsletter Form Submission
-const newsletterForm = document.getElementById('newsletterForm');
-if (newsletterForm) {
-    newsletterForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const emailInput = newsletterForm.querySelector('input[type="email"]');
-        const email = emailInput.value;
-        
-        // Simple validation
-        if (email && email.includes('@')) {
-            // Here you would typically send the email to your backend
-            alert('Thank you for subscribing! We\'ll keep you updated.');
-            emailInput.value = '';
-        } else {
-            alert('Please enter a valid email address.');
-        }
-    });
-}
 
 // Intersection Observer for fade-in animations
 const observerOptions = {
@@ -243,4 +187,7 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
+
+
 
